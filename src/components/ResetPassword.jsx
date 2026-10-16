@@ -28,7 +28,7 @@ const ResetPassword = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:3000/api/auth/reset-password/${token}`,
+                `https://ems-api-roan.vercel.app/api/auth/reset-password/${token}`,
                 { password }
             );
 

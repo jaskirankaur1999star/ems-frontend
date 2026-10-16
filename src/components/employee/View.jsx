@@ -50,7 +50,7 @@ useEffect(() => {
 
         try {
             const response = await axios.get(
-                `http://localhost:3000/api/employee/${id}`,
+                `https://ems-api-roan.vercel.app/api/employee/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -107,7 +107,7 @@ useEffect(() => {
             <div className="flex justify-center mb-8">
                 {employee.userId?.profileImage ? (
                     <img
-                        src={`http://localhost:3000/uploads/${employee.userId.profileImage}`}
+                        src={`https://ems-api-roan.vercel.app/uploads/${employee.userId.profileImage}`}
                         alt={employee.userId.name}
                         className="w-32 h-32 rounded-full object-cover border-4 border-gray-200"
                     />

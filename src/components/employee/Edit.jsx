@@ -32,7 +32,7 @@ const Edit = () => {
         const fetchEmployee = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/employee/${id}`,
+                    `https://ems-api-roan.vercel.app/api/employee/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem(
@@ -95,7 +95,7 @@ const Edit = () => {
 
         try {
             const response = await axios.put(
-                `http://localhost:3000/api/employee/${id}`,
+                `https://ems-api-roan.vercel.app/api/employee/${id}`,
                 {
                     name: employee.userId.name,
                     email: employee.userId.email,

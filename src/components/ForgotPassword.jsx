@@ -14,7 +14,7 @@ const ForgotPassword = () => {
 
         try {
             await axios.post(
-                "http://localhost:3000/api/auth/forgot-password",
+                "https://ems-api-roan.vercel.app/api/auth/forgot-password",
                 { email }
             );
 

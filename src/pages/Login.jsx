@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        "https://ems-api-roan.vercel.app/api/auth/login",
         { email, password },
       );
       toast.success("Login Successful!");
