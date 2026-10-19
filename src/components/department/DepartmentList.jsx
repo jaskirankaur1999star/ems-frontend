@@ -15,7 +15,7 @@ const DepartmentList = () => {
 
     try {
       const response = await axios.get(
-        "https://ems-api-roan.vercel.app/api/department",
+        "https://ems-api-seven.vercel.app/api/department",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -42,7 +42,7 @@ const Settings = () => {
 
         try {
             const response = await axios.put(
-                "https://ems-api-roan.vercel.app/api/auth/change-password",
+                "https://ems-api-seven.vercel.app/api/auth/change-password",
                 {
                     currentPassword: formData.currentPassword,
                     newPassword: formData.newPassword,

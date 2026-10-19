@@ -23,7 +23,7 @@ export const columns = [
         cell: (row) =>
             row.profileImage ? (
                 <img
-                    src={`https://ems-api-roan.vercel.app/uploads/${row.profileImage}`}
+                    src={`https://ems-api-seven.vercel.app/uploads/${row.profileImage}`}
                     alt={row.name}
                     className="w-10 h-10 rounded-full object-cover"
                 />
@@ -54,7 +54,7 @@ export const fetchDepartments = async () => {
 
     try {
         const response = await axios.get(
-            "https://ems-api-roan.vercel.app/api/department",
+            "https://ems-api-seven.vercel.app/api/department",
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +81,7 @@ export const getEmployees = async (id) => {
 
     try {
         const response = await axios.get(
-            `https://ems-api-roan.vercel.app/api/employee/department/${id}`,
+            `https://ems-api-seven.vercel.app/api/employee/department/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -120,7 +120,7 @@ export const EmployeeButtons = ({ _id }) => {
 
         try {
             const response = await axios.delete(
-                `https://ems-api-roan.vercel.app/api/employee/${_id}`,
+                `https://ems-api-seven.vercel.app/api/employee/${_id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,

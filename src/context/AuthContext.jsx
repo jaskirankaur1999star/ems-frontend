@@ -25,7 +25,7 @@ export const AuthContext = ({ children }) => {
         }
 
         const response = await axios.get(
-          "https://ems-api-roan.vercel.app/api/auth/verify",
+          "https://ems-api-seven.vercel.app/api/auth/verify",
           {
             headers: {
               Authorization: `Bearer ${token}`,
