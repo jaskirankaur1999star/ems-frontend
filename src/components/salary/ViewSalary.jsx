@@ -14,7 +14,7 @@ const ViewSalary = () => {
 
     try {
       const response = await axios.get(
-        `https://ems-api-roan.vercel.app/api/salary/${id}`,
+        `https://ems-api-seven.vercel.app/api/salary/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

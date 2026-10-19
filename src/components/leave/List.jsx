@@ -24,8 +24,8 @@ const List = () => {
                 const token = localStorage.getItem('token');
 
                 const url = isAdminView
-                    ? `https://ems-api-roan.vercel.app/api/leave/employee/${id}`
-                    : 'https://ems-api-roan.vercel.app/api/leave';
+                    ? `https://ems-api-seven.vercel.app/api/leave/employee/${id}`
+                    : 'https://ems-api-seven.vercel.app/api/leave';
 
                 const response = await axios.get(url, {
                     headers: {

@@ -39,7 +39,7 @@ const Add = () => {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(`https://ems-api-roan.vercel.app/api/employee`, {
+        const response = await axios.get(`https://ems-api-seven.vercel.app/api/employee`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -123,7 +123,7 @@ const Add = () => {
 
     try {
       const response = await axios.post(
-        `https://ems-api-roan.vercel.app/api/salary/add`,
+        `https://ems-api-seven.vercel.app/api/salary/add`,
         salary,
         {
           headers: {

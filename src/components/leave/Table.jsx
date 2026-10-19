@@ -15,7 +15,7 @@ const Table = () => {
       setLoading(true);
       setError("");
 
-      const response = await axios.get("https://ems-api-roan.vercel.app/api/leave/all", {
+      const response = await axios.get("https://ems-api-seven.vercel.app/api/leave/all", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
