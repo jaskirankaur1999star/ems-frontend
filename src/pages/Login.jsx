@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://ems-api-coral.vercel.app/api/auth/login",
+        "https://ems-api-seven.vercel.app/api/auth/login",
         { email, password },
       );
       toast.success("Login Successful!");
