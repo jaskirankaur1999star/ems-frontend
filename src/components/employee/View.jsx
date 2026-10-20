@@ -107,7 +107,11 @@ useEffect(() => {
             <div className="flex justify-center mb-8">
                 {employee.userId?.profileImage ? (
                     <img
-                        src={`https://ems-api-seven.vercel.app/uploads/${employee.userId.profileImage}`}
+                         src={
+            employee.userId.profileImage
+              ? `https://ems-api-seven.vercel.app/api/employee/image/${employee.userId.profileImage}`
+              : "/default-avatar.png"
+          }
                         alt={employee.userId.name}
                         className="w-32 h-32 rounded-full object-cover border-4 border-gray-200"
                     />
