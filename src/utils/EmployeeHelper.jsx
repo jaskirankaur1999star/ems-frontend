@@ -18,19 +18,46 @@ export const columns = [
         sortable: true,
     },
 
+    // {
+    //     name: "Image",
+    //     cell: (row) =>
+    //         row.profileImage ? (
+    //             <img
+    //                 src={`https://ems-api-seven.vercel.app/uploads/${row.profileImage}`}
+    //                 alt={row.name}
+    //                 className="w-10 h-10 rounded-full object-cover"
+    //             />
+    //         ) : (
+    //             <span>No Image</span>
+    //         ),
+    // },
+
     {
-        name: "Image",
-        cell: (row) =>
-            row.profileImage ? (
-                <img
-                    src={`https://ems-api-seven.vercel.app/uploads/${row.profileImage}`}
-                    alt={row.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                />
-            ) : (
-                <span>No Image</span>
-            ),
+    name: "Image",
+    cell: (row) => {
+        const profileImage =
+            row.profileImage ||
+            row.userId?.profileImage;
+
+        const imageUrl = profileImage
+            ? `https://ems-api-seven.vercel.app/api/employee/image/${profileImage}`
+            : "/default-avatar.png";
+
+        return (
+            <img
+                src={imageUrl}
+                alt={row.name || row.userId?.name || "Employee"}
+                className="w-10 h-10 rounded-full object-cover"
+                onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/default-avatar.png";
+                }}
+            />
+        );
     },
+    ignoreRowClick: true,
+    width: "100px",
+},
 
     {
         name: "Department",
