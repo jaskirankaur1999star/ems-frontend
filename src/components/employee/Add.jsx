@@ -134,10 +134,10 @@ const Add = () => {
                             </select>
                         </div>
                         {/* Image Upload */}
-                        <div>
+                        {/* <div>
                             <label htmlFor="" className='block text-sm font-medium text-gray-500'>Upload Profile Image:</label>
                             <input required type='file' name="image" placeholder='Upload Image' className='mt-1 w-full p-2 border border-gray-300 rounded-md ' accept='image/*' onChange={handleChange} />
-                        </div>
+                        </div> */}
 
 
                     </div>
