@@ -23,11 +23,7 @@ export const columns = [
         cell: (row) =>
             row.profileImage ? (
                 <img
-                   src={
-    employee.userId.profileImage
-        ? `https://ems-api-seven.vercel.app/api/employee/image/${employee.userId.profileImage}`
-        : "/default-avatar.png"
-}
+                    src={`https://ems-api-seven.vercel.app/uploads/${row.profileImage}`}
                     alt={row.name}
                     className="w-10 h-10 rounded-full object-cover"
                 />
