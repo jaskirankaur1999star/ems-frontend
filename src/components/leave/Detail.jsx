@@ -100,7 +100,11 @@ const Detail = () => {
       <div className="mb-8 flex justify-center">
         {user?.profileImage ? (
           <img
-            src={`https://ems-api-seven.vercel.app/uploads/${user.profileImage}`}
+             src={
+            employee.userId.profileImage
+              ? `https://ems-api-seven.vercel.app/api/employee/image/${employee.userId.profileImage}`
+              : "/default-avatar.png"
+          }
             alt={user.name || "Employee"}
             className="h-32 w-32 rounded-full border-4 border-gray-200 object-cover"
           />
