@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = "https://ems-api-seven.vercel.app/api";
+
 // =========================
 // TABLE COLUMNS
 // =========================
@@ -11,40 +13,61 @@ export const columns = [
         selector: (row) => row.sno,
         sortable: true,
     },
-
     {
         name: "Name",
-        selector: (row) => row.name,
+        selector: (row) => row.userId?.name || row.name || "N/A",
         sortable: true,
     },
-
     {
         name: "Image",
-        cell: (row) =>
-            row.profileImage ? (
-                <img
-                   src={
-    employee.userId.profileImage
-        ? `https://ems-api-seven.vercel.app/api/employee/image/${employee.userId.profileImage}`
-        : "/default-avatar.png"
-}
-                    alt={row.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                />
-            ) : (
-                <span>No Image</span>
-            ),
-    },
+        cell: (row) => {
+            const profileImage = row.userId?.profileImage || row.profileImage;
 
+            if (!profileImage) {
+                return (
+                    <span className="text-gray-500 text-sm">
+                        No Image
+                    </span>
+                );
+            }
+
+            // GridFS image ID is stored in MongoDB.
+            // Older records may still contain a local filename.
+            const isObjectId = /^[a-f\d]{24}$/i.test(profileImage);
+
+            const imageUrl = isObjectId
+                ? `${API_URL}/employee/image/${profileImage}`
+                : `${window.location.origin}/default-avatar.png`;
+
+            return (
+                <img
+                    src={imageUrl}
+                    alt={row.userId?.name || row.name || "Employee"}
+                    className="w-10 h-10 rounded-full object-cover"
+                    onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "/default-avatar.png";
+                    }}
+                />
+            );
+        },
+        ignoreRowClick: true,
+        width: "100px",
+    },
     {
         name: "Department",
-        selector: (row) => row.dep_name,
+        selector: (row) =>
+            row.department?.dep_name ||
+            row.dep_name ||
+            "N/A",
         sortable: true,
     },
-
     {
         name: "DOB",
-        selector: (row) => row.dob,
+        selector: (row) =>
+            row.dob
+                ? new Date(row.dob).toLocaleDateString()
+                : "N/A",
         sortable: true,
     },
 ];
@@ -54,11 +77,9 @@ export const columns = [
 // =========================
 
 export const fetchDepartments = async () => {
-    let departments = [];
-
     try {
         const response = await axios.get(
-            "https://ems-api-seven.vercel.app/api/department",
+            `${API_URL}/department`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,13 +88,18 @@ export const fetchDepartments = async () => {
         );
 
         if (response.data.success) {
-            departments = response.data.departments || [];
+            return response.data.departments || [];
         }
-    } catch (error) {
-        console.error("Fetch departments error:", error);
-    }
 
-    return departments;
+        return [];
+    } catch (error) {
+        console.error(
+            "Fetch departments error:",
+            error.response?.data || error.message
+        );
+
+        return [];
+    }
 };
 
 // =========================
@@ -81,11 +107,13 @@ export const fetchDepartments = async () => {
 // =========================
 
 export const getEmployees = async (id) => {
-    if (!id) return [];
+    if (!id) {
+        return [];
+    }
 
     try {
         const response = await axios.get(
-            `https://ems-api-seven.vercel.app/api/employee/department/${id}`,
+            `${API_URL}/employee/department/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -99,7 +127,11 @@ export const getEmployees = async (id) => {
 
         return [];
     } catch (error) {
-        console.error("Fetch employees error:", error);
+        console.error(
+            "Fetch employees error:",
+            error.response?.data || error.message
+        );
+
         return [];
     }
 };
@@ -120,11 +152,13 @@ export const EmployeeButtons = ({ _id }) => {
             "Are you sure you want to delete this employee?"
         );
 
-        if (!confirmed) return;
+        if (!confirmed) {
+            return;
+        }
 
         try {
             const response = await axios.delete(
-                `https://ems-api-seven.vercel.app/api/employee/${_id}`,
+                `${API_URL}/employee/${_id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -135,7 +169,7 @@ export const EmployeeButtons = ({ _id }) => {
             if (response.data.success) {
                 alert("Employee deleted successfully!");
 
-                // Refresh the employee list
+                // Refresh the employee list.
                 window.location.reload();
             } else {
                 alert(
@@ -144,7 +178,10 @@ export const EmployeeButtons = ({ _id }) => {
                 );
             }
         } catch (error) {
-            console.error("Delete employee error:", error);
+            console.error(
+                "Delete employee error:",
+                error.response?.data || error.message
+            );
 
             alert(
                 error.response?.data?.error ||
